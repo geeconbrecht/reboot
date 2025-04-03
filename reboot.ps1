@@ -7,7 +7,7 @@ $form.Size = New-Object System.Drawing.Size(450, 250)  # Iets grotere breedte
 $form.StartPosition = "CenterScreen"
 
 # Stel het opgeslagen icoon in
-$form.Icon = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Users\$UserProfile\AppData\Local\Temp\pootje.ico")
+#$form.Icon = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Users\$UserProfile\AppData\Local\Temp\pootje.ico")
 
 
 # Hoofdbericht
