@@ -1,3 +1,9 @@
+if (-Not (New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+    $arguments = "& '" + $myinvocation.mycommand.definition + "'"
+    Start-Process powershell.exe -Verb runAs -ArgumentList $arguments
+    exit
+}
+
 Add-Type -AssemblyName System.Windows.Forms
 
 # Creëer de hoofd-GUI
