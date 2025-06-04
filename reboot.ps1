@@ -1,31 +1,22 @@
-# Admin Prompt Configuratie
-if (-Not (New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    $arguments = "& '" + $myinvocation.mycommand.definition + "'"
-    Start-Process powershell.exe -Verb runAs -ArgumentList $arguments -WindowStyle Hidden
-    exit
-}
-
-
 Add-Type -AssemblyName System.Windows.Forms
 
 # Creëer de hoofd-GUI
 $form = New-Object System.Windows.Forms.Form
 $form.Text = "Herstart vereist - Geecon IT Solutions"
-$form.Size = New-Object System.Drawing.Size(450, 250)  # Iets grotere breedte
+$form.Size = New-Object System.Drawing.Size(420, 250)  # Iets verhoogde hoogte voor extra ruimte onderaan
 $form.StartPosition = "CenterScreen"
 
 # Stel het opgeslagen icoon in
-$form.Icon = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Users\Brecht\AppData\Local\Temp\pootje.ico")
-
+$form.Icon = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\pootje.ico")
 
 # Hoofdbericht
 $label = New-Object System.Windows.Forms.Label
 $label.Text = "Beste, uw computer heeft updates klaarstaan en zou herstart moeten worden om deze te voltooien. Gelieve uw documenten op te slaan en een keuze te maken."
-$label.Size = New-Object System.Drawing.Size(380, 60)  # Iets breder voor ruimte
+$label.Size = New-Object System.Drawing.Size(380, 60)
 $label.Location = New-Object System.Drawing.Point(20, 20)
 $label.Font = New-Object System.Drawing.Font("Arial", 9, [System.Drawing.FontStyle]::Regular)
 
-# Knoppen - locatie verschoven voor meer ruimte rechts
+# Knoppen
 $nowButton = New-Object System.Windows.Forms.Button
 $nowButton.Text = "Nu herstarten"
 $nowButton.Size = New-Object System.Drawing.Size(120, 30)
@@ -41,7 +32,7 @@ $customTimeButton.Text = "Specifieke tijd"
 $customTimeButton.Size = New-Object System.Drawing.Size(120, 30)
 $customTimeButton.Location = New-Object System.Drawing.Point(280, 90)
 
-# Contactlabel onderaan - locatie verschoven voor meer ruimte rechts
+# Contactlabel onderaan
 $contactLabel = New-Object System.Windows.Forms.Label
 $contactLabel.Text = "Indien er vragen zijn, kan u ons bereiken op 011369199."
 $contactLabel.AutoSize = $true
