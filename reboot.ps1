@@ -99,9 +99,7 @@ $laterButton.Add_Click({
         $taskName = "LaterHerstart"
         $action = New-ScheduledTaskAction -Execute "shutdown.exe" -Argument "/r /t 0"
         $trigger = New-ScheduledTaskTrigger -Once -At $targetTime
-         Register-ScheduledTask -TaskName $taskName -Action $action -Trigger $trigger `
-        -Principal (New-ScheduledTaskPrincipal -UserID "NT AUTHORITY\SYSTEM" -LogonType ServiceAccount) `
-        -Force
+        Register-ScheduledTask -TaskName $taskName -Action $action -Trigger $trigger -User "SYSTEM" -RunLevel Highest -Force
 
         [System.Windows.Forms.MessageBox]::Show("De herstart is gepland om $($targetTime.ToString('HH:mm')).", "Bevestiging", "OK", "Information")
         $laterForm.Close()
