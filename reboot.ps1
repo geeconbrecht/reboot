@@ -94,25 +94,26 @@ $laterButton.Add_Click({
     $laterForm.Controls.Add($btn60min)
     $laterForm.Controls.Add($btn120min)
 
-function Schedule-Restart($minutes) {
-    $targetTime = (Get-Date).AddMinutes($minutes)
-    $taskName = "LaterHerstart"
-    
-    # Maak de taakactie met SYSTEM credentials
-    $action = New-ScheduledTaskAction -Execute "shutdown.exe" -Argument "/r /t 0"
-    
-    # Maak de trigger
-    $trigger = New-ScheduledTaskTrigger -Once -At $targetTime
-    
-    # Registreer de taak met SYSTEM privileges
-    Register-ScheduledTask -TaskName $taskName -Action $action -Trigger $trigger `
+    function Schedule-Restart($minutes) {
+        $targetTime = (Get-Date).AddMinutes($minutes)
+        $taskName = "LaterHerstart"
+        $action = New-ScheduledTaskAction -Execute "shutdown.exe" -Argument "/r /t 0"
+        $trigger = New-ScheduledTaskTrigger -Once -At $targetTime
+         Register-ScheduledTask -TaskName $taskName -Action $action -Trigger $trigger `
         -Principal (New-ScheduledTaskPrincipal -UserID "NT AUTHORITY\SYSTEM" -LogonType ServiceAccount) `
         -Force
-    
-    [System.Windows.Forms.MessageBox]::Show("De herstart is gepland om $($targetTime.ToString('HH:mm')).", "Bevestiging", "OK", "Information")
-    $laterForm.Close()
-    $form.Close()
-}
+
+        [System.Windows.Forms.MessageBox]::Show("De herstart is gepland om $($targetTime.ToString('HH:mm')).", "Bevestiging", "OK", "Information")
+        $laterForm.Close()
+        $form.Close()
+    }
+
+    $btn30min.Add_Click({ Schedule-Restart 30 })
+    $btn60min.Add_Click({ Schedule-Restart 60 })
+    $btn120min.Add_Click({ Schedule-Restart 120 })
+
+    $laterForm.ShowDialog()
+})
 
 # Functie voor exacte tijd invoeren
 $customTimeButton.Add_Click({
